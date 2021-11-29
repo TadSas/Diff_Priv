@@ -18,16 +18,13 @@ def coin_flip(input_list):
     randomized_list = input_list[:]
     for member in range(len(randomized_list)):
         first_rand = randint(0, 1)
-        if first_rand == 1:
-            pass
-        else:
+        if first_rand != 1:
             second_rand = randint(0, 1)
             if second_rand == 1:
                 randomized_list[member] = 1
             else:
                 randomized_list[member] = 0
-                pass
-    real_yes_percent = round(randomized_list.count(1) * 100/len(randomized_list), 1)
+    real_yes_percent = round(randomized_list.count(1) * 100 / len(randomized_list), 1)
     with_approximation = round(real_yes_percent * 2 - 50, 1)
     return [real_yes_percent, with_approximation]
 
@@ -86,59 +83,18 @@ class FirstWindow(Screen, Widget):
                 self.ids.enter_number.text = ''
 
     def results_10(self, start):
+        temp = [self.ids.result_1, self.ids.result_2, self.ids.result_3,
+                self.ids.result_4, self.ids.result_5, self.ids.result_6,
+                self.ids.result_7, self.ids.result_8, self.ids.result_9,
+                self.ids.result_10]
         if len(self.main_members_list) != 0:
             if self.dump < 11:
                 self.dump += start
-            if self.dump == 1:
+            if self.dump <= 10:
                 rand_list = coin_flip(self.main_members_list)
                 self.chart1.append(rand_list[0])
                 self.chart2.append(rand_list[1])
-                self.ids.result_1.text = f"{rand_list[0]}% | {rand_list[1]}%"
-            elif self.dump == 2:
-                rand_list = coin_flip(self.main_members_list)
-                self.chart1.append(rand_list[0])
-                self.chart2.append(rand_list[1])
-                self.ids.result_2.text = f"{rand_list[0]}% | {rand_list[1]}%"
-            elif self.dump == 3:
-                rand_list = coin_flip(self.main_members_list)
-                self.chart1.append(rand_list[0])
-                self.chart2.append(rand_list[1])
-                self.ids.result_3.text = f"{rand_list[0]}% | {rand_list[1]}%"
-            elif self.dump == 4:
-                rand_list = coin_flip(self.main_members_list)
-                self.chart1.append(rand_list[0])
-                self.chart2.append(rand_list[1])
-                self.ids.result_4.text = f"{rand_list[0]}% | {rand_list[1]}%"
-            elif self.dump == 5:
-                rand_list = coin_flip(self.main_members_list)
-                self.chart1.append(rand_list[0])
-                self.chart2.append(rand_list[1])
-                self.ids.result_5.text = f"{rand_list[0]}% | {rand_list[1]}%"
-            elif self.dump == 6:
-                rand_list = coin_flip(self.main_members_list)
-                self.chart1.append(rand_list[0])
-                self.chart2.append(rand_list[1])
-                self.ids.result_6.text = f"{rand_list[0]}% | {rand_list[1]}%"
-            elif self.dump == 7:
-                rand_list = coin_flip(self.main_members_list)
-                self.chart1.append(rand_list[0])
-                self.chart2.append(rand_list[1])
-                self.ids.result_7.text = f"{rand_list[0]}% | {rand_list[1]}%"
-            elif self.dump == 8:
-                rand_list = coin_flip(self.main_members_list)
-                self.chart1.append(rand_list[0])
-                self.chart2.append(rand_list[1])
-                self.ids.result_8.text = f"{rand_list[0]}% | {rand_list[1]}%"
-            elif self.dump == 9:
-                rand_list = coin_flip(self.main_members_list)
-                self.chart1.append(rand_list[0])
-                self.chart2.append(rand_list[1])
-                self.ids.result_9.text = f"{rand_list[0]}% | {rand_list[1]}%"
-            elif self.dump == 10:
-                rand_list = coin_flip(self.main_members_list)
-                self.chart1.append(rand_list[0])
-                self.chart2.append(rand_list[1])
-                self.ids.result_10.text = f"{rand_list[0]}% | {rand_list[1]}%"
+                temp[self.dump - 1].text = f"{rand_list[0]}% | {rand_list[1]}%"
 
     def real_yes_percent(self):
         if self.amount_survey_members != 0:
@@ -211,9 +167,9 @@ class SecondWindow(Screen, Widget):
             if self.ids.enter_number.text.isnumeric():
                 if 10 <= int(self.ids.enter_number.text) <= 5000:
                     self.ids.mean_query_output.text = "N/A"
-                    self.ids.mean_query_output.color = [28/255.0, 72/255.0, 100/255.0, 1]
+                    self.ids.mean_query_output.color = [28 / 255.0, 72 / 255.0, 100 / 255.0, 1]
                     self.ids.sum_query_output.text = "N/A"
-                    self.ids.sum_query_output.color = [28/255.0, 72/255.0, 100/255.0, 1]
+                    self.ids.sum_query_output.color = [28 / 255.0, 72 / 255.0, 100 / 255.0, 1]
                     self.ids.mean_sens_output.text = "N/A"
                     self.ids.sum_sens_output.text = "N/A"
                     self.ids.mean_epsilon_input_button.hint_text = "0-ից մեծ"
@@ -319,7 +275,7 @@ class SecondWindow(Screen, Widget):
             noise = round(np.random.laplace(0, beta, 1)[0], 2)
             self.ids.mean_laplace_noise_output.text = str(noise)
             self.ids.mean_query_output.text = str(round(noise + self.mean_query_result, 2))
-            self.ids.mean_query_output.color = [145/255.0, 12/255.0, 7/255.0, 1]
+            self.ids.mean_query_output.color = [145 / 255.0, 12 / 255.0, 7 / 255.0, 1]
 
     def sum_laplace_noise(self):
         if self.sum_epsilon_input != 0 and self.sum_sensitivity != 0:
