@@ -11,7 +11,7 @@
 
 ## Description
 
-The project describes methods of Local and Global Differential Privacy
+The project describes the methods of Local and Global Differential Privacy
 
 #### Methods
 - Local Differential Privacy ![Local DP](pics/local.png)
